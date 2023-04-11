@@ -1,0 +1,24 @@
+@import "~taro-ui/dist/style/components/search-bar.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
+
+.home_location_search {
+  display: flex;
+}
+
+.home_location {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.home_search {
+  margin-left: 10px;
+  flex: 1;
+}
+
+.home_search_button {
+  margin-left: 10px;
+  flex: 1;
+  position: absolute;
+  align-content: end;
+  color: crimson;
+}
