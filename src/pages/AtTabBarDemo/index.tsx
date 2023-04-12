@@ -1,29 +1,64 @@
-import Taro from '@tarojs/taro'
-import { AtTabBar } from 'taro-ui'
-import { useState } from 'react'
-import './index.scss'
+import Taro from '@tarojs/taro';
+import {Button, View} from '@tarojs/components'
+import {AtTabs, AtTabsPane} from 'taro-ui'
+import {Component} from "react";
+import "./index.scss"
 
-function TabBarDemo() {
-    const [current, setCurrent] = useState(0)
-    const tabList = [
-        { title: '首页', iconType: 'home', url: '/pages/index/index' },
-        { title: '分类', iconType: 'bullet-list', url: '/pages/category/category' },
-        { title: '购物车', iconType: 'shopping-cart', url: '/pages/cart/cart' },
-        { title: '我的', iconType: 'user', url: '/pages/user/user' }
-    ]
-    return (
-        <AtTabBar
-          className='home_tab_bar'
-          fixed
-          selectedColor='#d43c33'
-          tabList={tabList}
-          onClick={(item) => {
-                setCurrent(item)
-                Taro.switchTab({ url: item.url })
-            }}
-          current={current}
-        />
-    )
+export default class TabBarDemo extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            current: 0,
+            tabList: [
+                {title: '标签页1'},
+                {title: '标签页2'}
+            ],
+            panelList: [<AtTabsPane current={0} index={0}>
+                <View style='font-size:18px;text-align:center;height:100px;'>标签页一的内容</View>
+            </AtTabsPane>, <AtTabsPane current={1} index={1}>
+                <View style='font-size:18px;text-align:center;height:100px;'>标签页二的内容</View>
+            </AtTabsPane>]
+        }
+    }
+
+    handleClick(value) {
+        this.setState({
+            current: value
+        })
+    }
+
+    handleAddTab() {
+        //console.log("========== state"+this.state)
+        //console.log("========== tabList"+this.state.tabList)
+        const currentTabCount = this.state.tabList.length + 1;
+        this.setState(
+            {
+                current:0,
+                tabList: [...this.state.tabList, {title: `标签页${currentTabCount}`}],
+                panelList: [...this.state.panelList, <AtTabsPane current={0} index={currentTabCount - 1}>
+                    <View style='font-size:18px;text-align:center;height:100px;'>标签页{currentTabCount}的内容</View>
+                </AtTabsPane>]
+            }
+        )
+    }
+
+    render() {
+        return (
+            <View>
+                {this.state.tabList && (<AtTabs
+                  current={this.state.current}
+                  scroll
+                  swipeable
+                  tabList={this.state.tabList}
+                  onClick={this.handleClick.bind(this)}
+                >
+                    {this.state.panelList}
+                </AtTabs>)}
+                
+
+                <Button onClick={this.handleAddTab}>添加标签页</Button>
+            </View>
+
+        )
+    }
 }
-
-export default TabBarDemo

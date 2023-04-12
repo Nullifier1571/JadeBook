@@ -15,7 +15,7 @@ type StateType = {
 
 export default class Index extends React.Component {
     state: StateType = {
-        selectorChecked: "美国",
+        selectorChecked: "北京",
         searchValue: "搜一搜"
     }
 
@@ -81,7 +81,7 @@ export default class Index extends React.Component {
                 <View className='home_location_search'>
                     <Picker
                       className='home_location'
-                      mode='selector' range={['美国', '中国', '巴西', '日本']} onChange={this.onChange}
+                      mode='selector' range={['北京', '上海', '广州', '深圳']} onChange={this.onChange}
                     >
                         <View className='picker'>
                             {this.state.selectorChecked}
@@ -92,15 +92,10 @@ export default class Index extends React.Component {
                       placeholder='请输入搜索关键字'
                     />
                 </View>
-
-                <AtGrid mode='square' hasBorder={false} columnNum={2} data={data} />
-
                 <TabBarDemo />
             </View>
         )
     }
-
-
 }
 
 
